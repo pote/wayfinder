@@ -3,14 +3,14 @@
 require 'box'
 require 'yaml'
 require 'mote'
-require 'pathfinder'
+require 'wayfinder'
 
 source_data = {}
 %i(meta stats gear feats buffs skills).each do |source_file|
   source_data[source_file] = YAML.load_file("#{ source_file.to_s }.yml")
 end
 
-character = Pathfinder::Character.new(source_data)
+character = Wayfinder::Character.new(source_data)
 template = Mote.parse(Box::FILES['character_sheet.md'],
                       self,
                       [:character]
@@ -26,7 +26,13 @@ __END__
 <table>
   <tbody>
     <tr>
-      Full Attack
+      <th>
+      </th>
+      <th>
+        Full Attack
+      </th>
+      <th>
+      </th>
     </tr>
     <tr>
       <th>

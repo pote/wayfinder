@@ -1,4 +1,4 @@
-module Pathfinder
+module Wayfinder
 
   BASE_STATS = %w(strength dexterity constitution wisdom charisma intelligence)
 
