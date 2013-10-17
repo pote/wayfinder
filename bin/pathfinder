@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+
+require 'box'
+require 'yaml'
+require 'mote'
+require 'pathfinder'
+
+source_data = {}
+%i(meta stats gear feats buffs skills).each do |source_file|
+  source_data[source_file] = YAML.load_file("#{ source_file.to_s }.yml")
+end
+
+character = Pathfinder::Character.new(source_data)
+template = Mote.parse(Box::FILES['character_sheet.md'],
+                      self,
+                      [:character]
+                     )
+
+File.open('README.md', 'w') do |f|
+  f.write(template.call(character: character))
+end
+
+__END__
+@@ character_sheet.md
+
+<table>
+  <tbody>
+    <tr>
+      Full Attack
+    </tr>
+    <tr>
+      <th>
+        Attack Number
+      </th>
+      <th>
+        To Hit Bonus
+      </th>
+      <th>
+        Damage
+      </th>
+    </tr>
+    % character.full_attack.each_with_index do |to_hit, index|
+      <tr>
+        <th>
+          {{ index + 1 }}
+        </th>
+        <th>
+          {{ to_hit }}
+        </th>
+        <th>
+          {{ character.damage }}
+        </th>
+      </tr>
+    % end
+  </tbody>
+</table>
+
+
+## Saving Throws
+<table>
+  <thead>
+    % character.saving_throws.each do |name, bonus|
+      <th>
+        {{ name.capitalize }}
+      </th>
+    % end
+  </thead>
+  <tbody>
+    <tr>
+      % character.saving_throws.each do |name, bonus|
+        <th>
+          {{ bonus }}
+        </th>
+      % end
+    </tr>
+  </tbody>
+</table>
