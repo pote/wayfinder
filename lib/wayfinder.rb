@@ -67,12 +67,16 @@ module Wayfinder
       self.source[:meta]['hp'] + modifier_for('hp')
     end
 
+    def received_damage
+      self.source[:meta]['received_damage']
+    end
+
     def current_hp
-      self.hp - self.source[:meta]['received_damage']
+      self.hp - self.received_damage
     end
 
     def initiative
-      dexterity_modifier + modifiers_for('initiative')
+      dexterity_modifier + modifier_for('initiative')
     end
 
     def bab

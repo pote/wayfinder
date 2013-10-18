@@ -11,73 +11,290 @@ source_data = {}
 end
 
 character = Wayfinder::Character.new(source_data)
-template = Mote.parse(Box::FILES['character_sheet.md'],
+template = Mote.parse(Box::FILES['character_sheet.htm'],
                       self,
                       [:character]
                      )
 
-File.open('README.md', 'w') do |f|
+File.open('character_sheet.htm', 'w') do |f|
   f.write(template.call(character: character))
 end
 
 __END__
-@@ character_sheet.md
+@@ character_sheet.htm
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text-html; charset=utf-8" />
+<title>Unnamed 1 [0 Points]</title>
+<style type="text/css">
+	.font4 {  font-family: Arial; font-size:4pt; }
+	.font5 {  font-family: Arial; font-size:5pt; }
+	.font6 {  font-family: Arial; font-size:6pt; }
+	.font7 {  font-family: Arial; font-size:7pt; }
+	.font8 {  font-family: Arial; font-size:8pt; }
+	.font9 {  font-family: Arial; font-size:9pt; }
+	.h { font-family: Arial; font-size:8pt; vertical-align: bottom; }
+	.hs { font-family: Arial; font-size:6pt; border-top-width:1px; border-top: 1pt solid black; vertical-align:top; background: #CCCCCC; }
+	.ah { font-family: Arial; font-size:4pt; text-align:center; }
+	.ab { font-family: Arial; font-size:10pt; text-align:center; color:white; background:black; }
+	.sc { font-family: Arial; font-size: 5pt }
+	.scr { font-family: Arial; font-size: 5pt; text-align:right }
+	.scbr { font-family: Arial; font-size: 5pt;	border-right-width:1px; border-right: 1pt solid black; text-align:right}
+	.hph { font-family: Arial; font-size: 7pt;	text-align:center; vertical-align:bottom;}
+	.ach { font-family: Arial; font-size: 7pt;	text-align:center; vertical-align:middle;}
+ 	.acb { font-family: Arial; font-size: 9pt; font-weight:bold; text-align:center; vertical-align:middle; border: 1px solid black;}
+ 	.hphs { font-family: Arial; font-size: 5pt;	text-align:center; vertical-align:bottom;}
+	.hpb { font-family: Arial; font-size: 9pt; font-weight:bold; text-align:center; vertical-align:middle; border: 1px solid black;}
+	.hpbb { font-family: Arial; font-size: 9pt; font-weight:bold; color:white; background:black; text-align:center; vertical-align:middle; border: 1px solid black;}
+	.abb { font-family: Arial; font-size:10pt; text-align:center; font-weight:bold; border: 1px solid black;}
+	.abt { font-family: Arial; font-size:10pt; text-align:center; font-weight:bold; border: 5px solid lightgray;}
+	.sptab { font-family: Arial; vertical-align:top;border: 1px solid black; text-align:center;font-size:8pt;}
+	.spname { font-family: Arial; vertical-align:top;border: 1px solid black; text-align:left;font-size:8pt;}
+	.sptop { font-family: Arial; vertical-align:top;border: 1px solid black; text-align:center;font-size:8pt; color:white;}
+	.splevel {  font-family: Arial; background:black; text-align:center;font-size:9pt; color:white;}
+	.sphead {  font-family: Arial; background:black; text-align:center;font-size:12pt; color:white;}
+	.spcomp { font-family: Arial; vertical-align:top; text-align:left;font-size:6pt;}
+	.spcomp2 { font-family: Arial; vertical-align:top; text-align:left;font-size:5pt;}
+	.spcomp3 { font-family: Arial; vertical-align:top; text-align:left;font-size:9pt;}
+	.topline {
+		border-top-width:1px;
+		border-top: 1pt solid black;
+		font-family: Arial;
+		font-size:6pt;
+	}
+	.border {
+		border: 1px solid black;
+	}
+	.border7 {
+		border: 1px solid black;
+		font-size:7pt;
+	}
+	.border8 {
+		border: 1px solid black;
+		font-size:8pt;
+	}
+	.border9 {
+		border: 1px solid black;
+		font-size:9pt;
+	}
+	.border10 {
+		border: 1px solid black;
+	}
+	.tempborder {
+		font-size:10pt;		border: 5px solid lightgray;
+	}
+	.borderbottom {
+		border-bottom-width:1px;
+		border-bottom: 1pt solid black;
+	}
+	.borderright {
+		border-right-width:1px;
+		border-right: 1pt solid black;
+	}
+	.c, .wbc {
+		text-align: center;
+	}
+	TD {
+		font-family: Arial
+	}
+	span.notes p {margin-top:0; margin-bottom:0;}
+</style>
+</head>
+<body bgcolor="white">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" summary="Master Page Table">
+	<tr>
+		<td rowspan="2" valign="top">
+<!-- START Abilities Table -->
+			<table summary="Ability Table">
+				<tr>
+					<td align="center" width="20%" class="font4">ABILITY<br />NAME</td>
+					<td align="center" width="20%" class="font4">ABILITY<br />SCORE</td>
+					<td align="center" width="20%" class="font4">ABILITY<br />MODIFIER</td>
+				</tr>
+				<tr>
+					<td class="ab"><b>STR</b><font style="font-size:5pt"><br />Strength</font></td>
+					<td class="abb">{{ character.strength }}</td>
+					<td class="abb">{{ character.strength_modifier }}</td>
+				</tr>
+				<tr>
+					<td class="ab"><b>DEX</b><font style="font-size:5pt"><br />Dexterity</font></td>
+					<td class="abb">{{ character.dexterity }}</td>
+					<td class="abb">{{ character.dexterity_modifier }}</td>
+				</tr>
+				<tr>
+					<td class="ab"><b>CON</b><font style="font-size:5pt"><br />Constitution</font></td>
+					<td class="abb">{{ character.constitution }}</td>
+					<td class="abb">{{ character.constitution_modifier }}</td>
+				</tr>
+				<tr>
+					<td class="ab"><b>INT</b><font style="font-size:5pt"><br />Intelligence</font></td>
+					<td class="abb">{{ character.intelligence }}</td>
+					<td class="abb">{{ character.intelligence_modifier }}</td>
+				</tr>
+				<tr>
+					<td class="ab"><b>WIS</b><font style="font-size:5pt"><br />Wisdom</font></td>
+					<td class="abb">{{ character.wisdom }}</td>
+					<td class="abb">{{ character.wisdom_modifier }}</td>
+				</tr>
+				<tr>
+					<td class="ab"><b>CHA</b><font style="font-size:5pt"><br />Charisma</font></td>
+					<td class="abb">{{ character.charisma }}</td>
+					<td class="abb">{{ character.charisma_modifier }}</td>
+				</tr>
+			</table>
+<!-- STOP Abilities Table -->
 
-<table>
-  <tbody>
-    <tr>
-      <th>
-      </th>
-      <th>
-        Full Attack
-      </th>
-      <th>
-      </th>
-    </tr>
-    <tr>
-      <th>
-        Attack Number
-      </th>
-      <th>
-        To Hit Bonus
-      </th>
-      <th>
-        Damage
-      </th>
-    </tr>
-    % character.full_attack.each_with_index do |to_hit, index|
-      <tr>
-        <th>
-          {{ index + 1 }}
-        </th>
-        <th>
-          {{ to_hit }}
-        </th>
-        <th>
-          {{ character.damage }}
-        </th>
-      </tr>
-    % end
-  </tbody>
+		</td>
+		<td colspan="2" valign="top">
+
+<!-- START Hit point Table -->
+			<table summary="HP Table">
+				<tr>
+					<td align="center" width="50"></td>
+					<td align="center" width="25" valign="bottom"></td>
+					<td align="center"></td>
+					<td align="center" width="119" class="font5"><br />WOUNDS/CURRENT HP</td>
+					<td align="center"></td>
+					<td align="center" width="60" class="font5"><br />DAMAGE<br />REDUCTION</td>
+					<td align="center"></td>
+					<td align="center" width="60" class="font5"><br />SPEED</td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>HP</b></font><font style="font-size:5pt" color="white"><br />Hit Points</font></td>
+					<td align="center" class="border9"><b>{{ character.hp }}</b></td>
+					<td align="center" class="font7"><br /></td>
+					<td align="center" class="border9">{{ character.received_damage }}<br /></td>
+					<td align="center" class="font7"><br /></td>
+					<td align="center" class="border9"><b>&nbsp;&nbsp;</b></td>
+					<td align="center" class="font7"><br /></td>
+					<td align="center" class="border9"><b><br /></b></td>
+				</tr>
+			</table>
+<!-- STOP Hit point Table -->
+<!-- START AC Table -->
+			<table summary="AC Table">
+				<tr>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>AC</b></font><font style="font-size:5pt" color="white"><br />Armour Class</font></td>
+					<!-- Thomas Behr 13-02-02: replaced old tokens with new ones -->
+					<td align="center" class="border9"><b>{{ character.ac }}</b></td>
+				</tr>
+				<tr>
+					<td align="center" width="50"></td>
+				</tr>
+			</table>
+<!-- STOP AC Table -->
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+<!-- START Initiative Table -->
+			<table width="35%" summary="Initiative Table">
+				<tr>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>INITIATIVE</b></font><font style="font-size:5pt" color="white"><br />Modifier</font></td>
+					<td align="center" class="border9"><b>{{ character.initiative }}</b></td>
+					</tr>
+					<tr>
+				</tr>
+			</table>
+<!-- STOP Initiative Table -->
+<!-- START Base Attack Table -->
+			<table width="100%" summary="Base Attack Table">
+				<tr>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>BASE ATTACK</b></font><font style="font-size:5pt" color="white"><br />Bonus</font></td>
+					<td align="center" width="94" class="border10"><b>{{ character.bab }} <br /></b></td>
+					<td align="center" width="50%"><br /></td>
+				</tr>
+			</table>
+<!-- STOP Base Attack Table -->
+		</td>
+		<td rowspan="2" valign="top" width="50%">
+
+<!-- STOP PSI Power Points Table -->
+<!-- START Skills Table -->
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Skills Table">
+				<tr>
+					<td colspan="3" bgcolor="black" align="center"><font style="font-size: 9pt" color="white"><b>SKILLS</b></font>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" class="border" valign="top">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Skills Table">
+							<tr><td align="left" class="borderbottom"><font style="font-size: 5pt">&nbsp;Name</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">Abb</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Rnk</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Tot&nbsp;</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">&nbsp;Name</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">Abb</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Rnk</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Tot&nbsp;</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">&nbsp;Name</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">Abb</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Rnk</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Tot&nbsp;</font></td><tr>
+							<tr><td align="left"><font style="font-size: 5pt">&nbsp;Acrobatics</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Disguise</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Ride</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Acrobatics (Jump)</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-23&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Escape Artist</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Sense Motive</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Appraise</font></td><td align="left"><font style="font-size: 5pt">INT</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Fly</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Stealth</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Bluff</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Heal</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Survival</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Climb</font></td><td align="left"><font style="font-size: 5pt">STR</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-3&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Intimidate</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Swim</font></td><td align="left"><font style="font-size: 5pt">STR</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-3&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Craft (Untrained)</font></td><td align="left"><font style="font-size: 5pt">INT</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Perception</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Diplomacy</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Perform (Untrained)</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+<!-- STOP Skills Table -->
+<!-- START Special Attacks Table -->
+<!-- STOP Special Attacks Table -->
+<!-- START Animal Tricks Table -->
+<!-- STOP Animal Tricks Table -->
+<!-- START Special Quality Table -->
+<!-- STOP Special Quality Table -->
+<!-- START Special Abilities Table -->
+
+<!-- STOP Special Abilities Table -->
+<!-- START Feats Table -->
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Feats Table">
+				<tr>
+					<td colspan="1" bgcolor="black" align="center"><font style="font-size: 9pt" color="white"><b>FEATS</b></font></td>
+				</tr>
+				<tr>
+					<td align="left" width="100%" class="border7"></td>
+				</tr>
+			</table>
+<!-- STOP Feats Table -->
+
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top">
+<!-- START Saving Throws Table -->
+			<table width="25%" summary="Saving Throws">
+				<tr>
+					<td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>Fortitude</b></font>
+						<font style="font-size:5pt" color="white"><br />
+Constitution
+						</font>
+					</td>
+					<td align="center" class="border9"><b>{{ character.fortitude }}</b></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>Reflex</b></font>
+						<font style="font-size:5pt" color="white"><br />
+Dexterity
+						</font>
+					</td>
+					<td align="center" class="border9"><b>{{ character.reflex }}</b></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>Will</b></font>
+						<font style="font-size:5pt" color="white"><br />
+Wisdom
+						</font>
+					</td>
+					<td align="center" class="border9"><b>{{ character.will }}</b></td>
+				</tr>
+			</table>
+<!-- STOP Saving Throws Table -->
+<!-- START Unarmed Attack Table -->
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Unarmed Attack Table">
+				<tr>
+					<td align="center" height="25" bgcolor="black" rowspan="2" width="125"><font style="font-size:10pt" color="white"><b>Attack</b></font></td>
+					<td align="center" bgcolor="black" width="110" height="15"><font style="font-size:6pt" color="white"><b>TOTAL ATTACK BONUS</b></font></td>
+					<td align="center" bgcolor="black" width="60" height="15"><font style="font-size:6pt" color="white"><b>DAMAGE</b></font></td>
+					<td align="center" bgcolor="black" width="60" height="15"><font style="font-size:6pt" color="white"><b>CRITICAL</b></font></td>
+				</tr>
+				<tr><td align="center" bgcolor="white" class="border8"><b>{{ character.full_attack.join('/') }}<br /></b></td>
+					<td align="center" bgcolor="white" class="border8"><b>{{ character.damage }}<br /></b></td>
+					<td align="center" bgcolor="white" class="border8"><b>--<br /></b></td>
+				</tr>
+			</table>
+<!-- STOP Saving Throws Table -->
+		</td>
+	</tr>
 </table>
-
-
-## Saving Throws
-<table>
-  <thead>
-    % character.saving_throws.each do |name, bonus|
-      <th>
-        {{ name.capitalize }}
-      </th>
-    % end
-  </thead>
-  <tbody>
-    <tr>
-      % character.saving_throws.each do |name, bonus|
-        <th>
-          {{ bonus }}
-        </th>
-      % end
-    </tr>
-  </tbody>
-</table>
+</body>
+</html>
