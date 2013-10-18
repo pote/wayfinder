@@ -113,32 +113,32 @@ __END__
 					<td align="center" width="20%" class="font4">ABILITY<br />MODIFIER</td>
 				</tr>
 				<tr>
-					<td class="ab"><b>STR</b><font style="font-size:5pt"><br />Strength</font></td>
+					<td class="ab"><b>STR</b></td>
 					<td class="abb">{{ character.strength }}</td>
 					<td class="abb">{{ character.strength_modifier }}</td>
 				</tr>
 				<tr>
-					<td class="ab"><b>DEX</b><font style="font-size:5pt"><br />Dexterity</font></td>
+					<td class="ab"><b>DEX</b></td>
 					<td class="abb">{{ character.dexterity }}</td>
 					<td class="abb">{{ character.dexterity_modifier }}</td>
 				</tr>
 				<tr>
-					<td class="ab"><b>CON</b><font style="font-size:5pt"><br />Constitution</font></td>
+					<td class="ab"><b>CON</b></td>
 					<td class="abb">{{ character.constitution }}</td>
 					<td class="abb">{{ character.constitution_modifier }}</td>
 				</tr>
 				<tr>
-					<td class="ab"><b>INT</b><font style="font-size:5pt"><br />Intelligence</font></td>
+					<td class="ab"><b>INT</b></td>
 					<td class="abb">{{ character.intelligence }}</td>
 					<td class="abb">{{ character.intelligence_modifier }}</td>
 				</tr>
 				<tr>
-					<td class="ab"><b>WIS</b><font style="font-size:5pt"><br />Wisdom</font></td>
+					<td class="ab"><b>WIS</b></td>
 					<td class="abb">{{ character.wisdom }}</td>
 					<td class="abb">{{ character.wisdom_modifier }}</td>
 				</tr>
 				<tr>
-					<td class="ab"><b>CHA</b><font style="font-size:5pt"><br />Charisma</font></td>
+					<td class="ab"><b>CHA</b></td>
 					<td class="abb">{{ character.charisma }}</td>
 					<td class="abb">{{ character.charisma_modifier }}</td>
 				</tr>
@@ -161,7 +161,7 @@ __END__
 					<td align="center" width="60" class="font5"><br />SPEED</td>
 				</tr>
 				<tr>
-					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>HP</b></font><font style="font-size:5pt" color="white"><br />Hit Points</font></td>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>HP</b></font></td>
 					<td align="center" class="border9"><b>{{ character.hp }}</b></td>
 					<td align="center" class="font7"><br /></td>
 					<td align="center" class="border9">{{ character.received_damage }}<br /></td>
@@ -175,7 +175,7 @@ __END__
 <!-- START AC Table -->
 			<table summary="AC Table">
 				<tr>
-					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>AC</b></font><font style="font-size:5pt" color="white"><br />Armour Class</font></td>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>AC</b></font></td>
 					<!-- Thomas Behr 13-02-02: replaced old tokens with new ones -->
 					<td align="center" class="border9"><b>{{ character.ac }}</b></td>
 				</tr>
@@ -191,7 +191,7 @@ __END__
 <!-- START Initiative Table -->
 			<table width="35%" summary="Initiative Table">
 				<tr>
-					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>INITIATIVE</b></font><font style="font-size:5pt" color="white"><br />Modifier</font></td>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>INITIATIVE</b></font></td>
 					<td align="center" class="border9"><b>{{ character.initiative }}</b></td>
 					</tr>
 					<tr>
@@ -201,7 +201,7 @@ __END__
 <!-- START Base Attack Table -->
 			<table width="100%" summary="Base Attack Table">
 				<tr>
-					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>BASE ATTACK</b></font><font style="font-size:5pt" color="white"><br />Bonus</font></td>
+					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>BAB</b></font></td>
 					<td align="center" width="94" class="border10"><b>{{ character.bab }} <br /></b></td>
 					<td align="center" width="50%"><br /></td>
 				</tr>
@@ -255,25 +255,16 @@ __END__
 			<table width="25%" summary="Saving Throws">
 				<tr>
 					<td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>Fortitude</b></font>
-						<font style="font-size:5pt" color="white"><br />
-Constitution
-						</font>
 					</td>
 					<td align="center" class="border9"><b>{{ character.fortitude }}</b></td>
 				</tr>
 				<tr>
 					<td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>Reflex</b></font>
-						<font style="font-size:5pt" color="white"><br />
-Dexterity
-						</font>
 					</td>
 					<td align="center" class="border9"><b>{{ character.reflex }}</b></td>
 				</tr>
 				<tr>
 					<td align="center" bgcolor="black"><font style="font-size:10pt" color="white"><b>Will</b></font>
-						<font style="font-size:5pt" color="white"><br />
-Wisdom
-						</font>
 					</td>
 					<td align="center" class="border9"><b>{{ character.will }}</b></td>
 				</tr>
