@@ -1,0 +1,42 @@
+rapier:
+  name: 'DiBlasi Rapier of Awesome +3'
+  active: true
+  modifiers:
+    to_hit: 3
+    damage: 3
+
+chain_shirt:
+  name: 'Mithril Chain Shirt +2'
+  active: true
+  modifiers:
+    ac: 6
+
+ring_of_protection:
+  name: 'Ring of Protection'
+  active: true
+  modifiers:
+    ac: 2
+
+belt_of_giant_strength:
+  name: 'Belt of Giant Strength'
+  active: true
+  modifiers:
+    strength: 4
+
+amulet_of_natural_armor:
+  name: 'Amulet of Natural Armor'
+  active: true
+  modifiers:
+    ac: 2
+
+ioun_stone:
+  name: 'Ioun Stone'
+  active: true
+  modifiers:
+    escape_artist: 1
+
+cloak_of_elvenkind:
+  name: 'Cloak of Elvenkind'
+  active: true
+  modifiers:
+    stealth: 5

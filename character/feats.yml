@@ -1,0 +1,42 @@
+weapon_focus:
+  name: 'Weapon Focus (Rapier)'
+  active: true
+  modifiers:
+    to_hit: 1
+
+precise_strike:
+  name: 'Precise Strike'
+  active: true
+  modifiers:
+    damage: 5
+
+power_attack:
+  name: 'Power Attack'
+  active: true
+  modifiers:
+    to_hit: -3
+    damage: 6
+
+dodge:
+  name: 'Dodge'
+  active: true
+  modifiers:
+    ac: 1
+
+canny_defense:
+  name: 'Canny Defense'
+  active: true
+  modifiers:
+    ac: 1
+
+improved_reaction:
+  name: 'Improved Reaction'
+  active: true
+  modifiers:
+    initiative: 2
+
+grace:
+  name: 'Grace'
+  active: true
+  modifiers:
+    reflex: 2

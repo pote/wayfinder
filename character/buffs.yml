@@ -1,0 +1,38 @@
+heroism:
+  name: 'Heroism'
+  active: true
+  modifiers:
+    to_hit: 2
+    fortitude: 2
+    reflex: 2
+    will: 2
+
+di_blasi_song_ed:
+  name: 'Di Blasi Song (Ed)'
+  active: false
+  modifiers:
+    to_hit: 1
+    damage: 1
+
+di_blasi_song_al:
+  name: 'Di Blasi Song (Al)'
+  active: false
+  modifiers:
+    to_hit: 1
+    damage: 1
+
+
+## Temporary Stuff
+miniaturized:
+  name: 'Mass reduce person'
+  active: true
+  modifiers:
+    strength: -2
+    to_hit: 1
+    ac: 1
+
+heroes_feast:
+  name: 'Heroes Feast'
+  active: true
+  modifiers:
+    hp: 11
