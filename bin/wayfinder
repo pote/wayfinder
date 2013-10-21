@@ -5,14 +5,15 @@ require 'clap'
 require 'yaml'
 require 'mote'
 require 'wayfinder'
+require 'debugger'
 
 source_dir = 'source'
 output_file = 'README.md'
 template_file = 'source/template.md'
 
 Clap.run ARGV,
-  '-s' => lambda { |param| source_dir     = param  }
-  '-o' => lambda { |param| output_fiile   = param  }
+  '-s' => lambda { |param| source_dir     = param  },
+  '-o' => lambda { |param| output_fiile   = param  },
   '-t' => lambda { |param| template_file  = param  }
 
 source_data = {}
@@ -23,9 +24,10 @@ end
 character = Wayfinder::Character.new(source_data)
 
 case ARGV[0]
-when 'console' then puts '>> Character console'
+when 'console'
+  debugger; 1
 when 'generate'
-  template = if File.exists(template_file)
+  template = if File.exists?(template_file)
     Mote.parse(template_file, self, [:character])
   else
     Mote.parse(Box::FILES['character_sheet.htm'], self, [:character])

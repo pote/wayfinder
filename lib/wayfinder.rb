@@ -47,7 +47,7 @@ module Wayfinder
     ## Returns an array of object who affect the specified attribute
     def stack_for(attribute)
       self.modifier_stack.map(&:values).flatten.keep_if do |item|
-        item['active'] && item['modifiers'].keys.include?(attribute)
+        item['active'] && item.fetch('modifiers', {}).keys.include?(attribute)
       end
     end
 
