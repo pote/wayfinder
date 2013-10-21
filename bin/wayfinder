@@ -1,23 +1,39 @@
 #!/usr/bin/env ruby
 
 require 'box'
+require 'clap'
 require 'yaml'
 require 'mote'
 require 'wayfinder'
 
+source_dir = 'source'
+output_file = 'README.md'
+template_file = 'source/template.md'
+
+Clap.run ARGV,
+  '-s' => lambda { |param| source_dir     = param  }
+  '-o' => lambda { |param| output_fiile   = param  }
+  '-t' => lambda { |param| template_file  = param  }
+
 source_data = {}
 %i(meta stats gear feats buffs skills).each do |source_file|
-  source_data[source_file] = YAML.load_file("#{ source_file.to_s }.yml")
+  source_data[source_file] = YAML.load_file(File.join(source_dir, "#{ source_file.to_s }.yml"))
 end
 
 character = Wayfinder::Character.new(source_data)
-template = Mote.parse(Box::FILES['character_sheet.htm'],
-                      self,
-                      [:character]
-                     )
 
-File.open('character_sheet.htm', 'w') do |f|
-  f.write(template.call(character: character))
+case ARGV[0]
+when 'console' then puts '>> Character console'
+when 'generate'
+  template = if File.exists(template_file)
+    Mote.parse(template_file, self, [:character])
+  else
+    Mote.parse(Box::FILES['character_sheet.htm'], self, [:character])
+  end
+
+  File.open('character_sheet.htm', 'w') do |f|
+    f.write(template.call(character: character))
+  end
 end
 
 __END__
@@ -209,44 +225,6 @@ __END__
 <!-- STOP Base Attack Table -->
 		</td>
 		<td rowspan="2" valign="top" width="50%">
-
-<!-- STOP PSI Power Points Table -->
-<!-- START Skills Table -->
-			<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Skills Table">
-				<tr>
-					<td colspan="3" bgcolor="black" align="center"><font style="font-size: 9pt" color="white"><b>SKILLS</b></font>
-					</td>
-				</tr>
-				<tr>
-					<td align="left" class="border" valign="top">
-						<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Skills Table">
-							<tr><td align="left" class="borderbottom"><font style="font-size: 5pt">&nbsp;Name</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">Abb</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Rnk</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Tot&nbsp;</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">&nbsp;Name</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">Abb</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Rnk</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Tot&nbsp;</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">&nbsp;Name</font></td><td align="left" class="borderbottom"><font style="font-size: 5pt">Abb</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Rnk</font></td><td align="right" class="borderbottom"><font style="font-size: 5pt">Tot&nbsp;</font></td><tr>
-							<tr><td align="left"><font style="font-size: 5pt">&nbsp;Acrobatics</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Disguise</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Ride</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Acrobatics (Jump)</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-23&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Escape Artist</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Sense Motive</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Appraise</font></td><td align="left"><font style="font-size: 5pt">INT</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Fly</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Stealth</font></td><td align="left"><font style="font-size: 5pt">DEX</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-11&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Bluff</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Heal</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Survival</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Climb</font></td><td align="left"><font style="font-size: 5pt">STR</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-3&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Intimidate</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Swim</font></td><td align="left"><font style="font-size: 5pt">STR</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-3&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Craft (Untrained)</font></td><td align="left"><font style="font-size: 5pt">INT</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Perception</font></td><td align="left"><font style="font-size: 5pt">WIS</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr><tr><td align="left"><font style="font-size: 5pt">&nbsp;Diplomacy</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><td align="left"><font style="font-size: 5pt">&nbsp;Perform (Untrained)</font></td><td align="left"><font style="font-size: 5pt">CHA</font></td><td align="right"><font style="font-size: 5pt">0.0</font></td><td align="right" class="borderright"><font style="font-size: 5pt">-5&nbsp;</font></td><tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-<!-- STOP Skills Table -->
-<!-- START Special Attacks Table -->
-<!-- STOP Special Attacks Table -->
-<!-- START Animal Tricks Table -->
-<!-- STOP Animal Tricks Table -->
-<!-- START Special Quality Table -->
-<!-- STOP Special Quality Table -->
-<!-- START Special Abilities Table -->
-
-<!-- STOP Special Abilities Table -->
-<!-- START Feats Table -->
-			<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Feats Table">
-				<tr>
-					<td colspan="1" bgcolor="black" align="center"><font style="font-size: 9pt" color="white"><b>FEATS</b></font></td>
-				</tr>
-				<tr>
-					<td align="left" width="100%" class="border7"></td>
-				</tr>
-			</table>
-<!-- STOP Feats Table -->
-
 		</td>
 	</tr>
 	<tr>
