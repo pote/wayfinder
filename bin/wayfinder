@@ -13,7 +13,7 @@ template_file = 'source/template.md'
 
 Clap.run ARGV,
   '-s' => lambda { |param| source_dir     = param  },
-  '-o' => lambda { |param| output_fiile   = param  },
+  '-o' => lambda { |param| output_file   = param  },
   '-t' => lambda { |param| template_file  = param  }
 
 source_data = {}
@@ -33,7 +33,7 @@ when 'generate'
     Mote.parse(Box::FILES['character_sheet.htm'], self, [:character])
   end
 
-  File.open('character_sheet.htm', 'w') do |f|
+  File.open(output_file, 'w') do |f|
     f.write(template.call(character: character))
   end
 end
