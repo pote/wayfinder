@@ -75,6 +75,10 @@ module Wayfinder
       self.hp - self.received_damage
     end
 
+    def speed
+      30 + modifier_for('speed')
+    end
+
     def initiative
       dexterity_modifier + modifier_for('initiative')
     end
