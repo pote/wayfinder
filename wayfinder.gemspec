@@ -14,4 +14,6 @@ Gem::Specification.new do |s|
   s.executables.push("wayfinder")
   s.add_runtime_dependency('box')
   s.add_runtime_dependency('mote')
+  s.add_runtime_dependency('clap')
+  s.add_runtime_dependency('debugger')
 end

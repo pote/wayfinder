@@ -182,7 +182,7 @@ __END__
 					<td align="center" bgcolor="black"><font style="font-size:9pt" color="white"><b>HP</b></font></td>
 					<td align="center" class="border9"><b>{{ character.hp }}</b></td>
 					<td align="center" class="font7"><br /></td>
-					<td align="center" class="border9">{{ character.received_damage }}<br /></td>
+					<td align="center" class="border9">{{ character.received_damage }}/{{ character.current_hp }}<br /></td>
 					<td align="center" class="font7"><br /></td>
 					<td align="center" class="border9"><b>&nbsp;&nbsp;</b></td>
 					<td align="center" class="font7"><br /></td>

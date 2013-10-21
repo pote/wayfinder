@@ -110,6 +110,10 @@ module Wayfinder
       10 + dexterity_modifier + modifier_for('ac')
     end
 
+    def damage_reduction
+      0 + modifier_for('damage_reduction')
+    end
+
     ## Saving Throws
     def saving_throws
       {
