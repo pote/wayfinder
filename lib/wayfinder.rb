@@ -71,6 +71,10 @@ module Wayfinder
       self.source[:meta]['name']
     end
 
+    def xp
+      self.source[:meta]['xp']
+    end
+
     ## Combat
 
     def hp
@@ -118,6 +122,14 @@ module Wayfinder
 
     def ac
       10 + dexterity_modifier + modifier_for('ac')
+    end
+
+    def cmd
+      10 + self.bab + strength_modifier + dexterity_modifier + modifier_for('cmd')
+    end
+
+    def cmb
+      10 + self.bab + strength_modifier + modifier_for('cmd')
     end
 
     def damage_reduction
