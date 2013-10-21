@@ -44,10 +44,16 @@ module Wayfinder
       end
     end
 
+
+    ## Returns an array of items in the modifier stack marked with 'active: true'
+    def active_stack
+      self.modifier_stack.map(&:values).flatten.keep_if { |item| item['active'] }
+    end
+
     ## Returns an array of object who affect the specified attribute
     def stack_for(attribute)
-      self.modifier_stack.map(&:values).flatten.keep_if do |item|
-        item['active'] && item.fetch('modifiers', {}).keys.include?(attribute)
+      self.active_stack.each do |item|
+        item.fetch('modifiers', {}).keys.include?(attribute)
       end
     end
 
@@ -55,10 +61,14 @@ module Wayfinder
     def modifier_for(attribute)
       modifier = 0
       stack_for(attribute).each do |mod|
-        modifier += mod['modifiers'][attribute]
+        modifier += mod.fetch('modifiers', {}).fetch(attribute, 0)
       end
 
       modifier
+    end
+
+    def name
+      self.source[:meta]['name']
     end
 
     ## Combat

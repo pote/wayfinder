@@ -28,7 +28,7 @@ when 'console'
   debugger; 1
 when 'generate'
   template = if File.exists?(template_file)
-    Mote.parse(template_file, self, [:character])
+    Mote.parse(File.read(template_file), self, [:character])
   else
     Mote.parse(Box::FILES['character_sheet.htm'], self, [:character])
   end
