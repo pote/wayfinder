@@ -99,7 +99,7 @@ module Wayfinder
       attack_babs = [self.bab]
 
       ## Fuck yeah I used a while in ruby, fuck you, fuck everything, EVERYTHING.
-      while attack_babs.last - 5 > 1
+      while attack_babs.last - 5 >= 1
         attack_babs << attack_babs.last - 5
       end
 
