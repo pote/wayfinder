@@ -55,7 +55,6 @@ module Wayfinder
       applicable_stack = []
 
       self.active_stack.keep_if { |item|
-        # We care about the attributes each modifier affects.
         item.fetch('modifiers', {}).keys.include?(attribute)
       }.group_by { |mod| mod['type'] }.each do |type, mods|
         if type
@@ -70,7 +69,7 @@ module Wayfinder
       applicable_stack
     end
 
-    ## Outputs the final modifier for the specified attribute.
+    ## Outputs the final numeric modifier for the specified attribute.
     def modifier_for(attribute)
       modifier = 0
 
@@ -88,8 +87,6 @@ module Wayfinder
     def xp
       self.source[:meta]['xp']
     end
-
-    ## Combat
 
     def hp
       self.source[:meta]['hp'] + modifier_for('hp')
@@ -150,7 +147,6 @@ module Wayfinder
       0 + modifier_for('damage_reduction')
     end
 
-    ## Saving Throws
     def saving_throws
       {
         fortitude: self.fortitude,
