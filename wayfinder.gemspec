@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name              = "wayfinder"
-  s.version           = "0.0.4"
+  s.version           = "0.0.5"
   s.summary           = "Pathfinder RPG character bookkeeping made easy."
   s.description       = "Wayfinder assumes you'll keep your character described in yaml following a set of conventions, all the data points are
       aggregated together to generate a nicely formatted output from the input data, with all the numbers crunched in for you."

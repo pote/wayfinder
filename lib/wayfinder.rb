@@ -44,7 +44,6 @@ module Wayfinder
       end
     end
 
-
     ## Returns an array of items in the modifier stack marked with 'active: true'
     def active_stack
       self.modifier_stack.map(&:values).flatten.keep_if { |item| item['active'] }
@@ -52,14 +51,26 @@ module Wayfinder
 
     ## Returns an array of object who affect the specified attribute
     def stack_for(attribute)
-      self.active_stack.each do |item|
+      # Bonuses of the same type do not stack, we need to pick the biggest one and use that one.
+      applicable_stack = []
+
+      self.active_stack.keep_if { |item|
         item.fetch('modifiers', {}).keys.include?(attribute)
+      }.group_by { |mod| mod['type'] }.each do |type, mods|
+        if type
+          applicable_stack << mods.sort_by { |mod| mod.fetch('modifiers', {}).fetch(attribute, 0) }.reverse.first
+        else
+          applicable_stack += mods
+        end
       end
+
+      applicable_stack
     end
 
     ## Outputs the final modifier for the specified attribute.
     def modifier_for(attribute)
       modifier = 0
+
       stack_for(attribute).each do |mod|
         modifier += mod.fetch('modifiers', {}).fetch(attribute, 0)
       end
@@ -159,7 +170,7 @@ module Wayfinder
 
     def skill(skill_name)
       skill = self.source[:skills].fetch(skill_name, {})
-      computed_score = skill.fetch('ranks', 0) + self.send("#{ skill['stat'] }_modifier") + modifier_for(skill_name)
+      computed_score = skill.fetch('ranks', 0) + self.send("#{ skill['stat'] }_modifier") + modifier_for(skill_name) + modifier_for('all_skills')
 
       if skill['class']
         computed_score += 3
