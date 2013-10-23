@@ -55,11 +55,14 @@ module Wayfinder
       applicable_stack = []
 
       self.active_stack.keep_if { |item|
+        # We care about the attributes each modifier affects.
         item.fetch('modifiers', {}).keys.include?(attribute)
       }.group_by { |mod| mod['type'] }.each do |type, mods|
         if type
+          # We take the highest modifier of each type
           applicable_stack << mods.sort_by { |mod| mod.fetch('modifiers', {}).fetch(attribute, 0) }.reverse.first
         else
+          # Modifiers without a type are simply added to the stack.
           applicable_stack += mods
         end
       end
