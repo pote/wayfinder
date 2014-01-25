@@ -19,7 +19,7 @@ pretty much all other roleplayin games, really - is incredibly complex. Trying t
 just becomes plain impossible when trying to account for every possible feat, magical effect, weird class feature and random modifiers.
 
 Wayfinder errs on the side of simplicity: your character doesn't have a class but it's composed of some extremely basic stuff like `stats` (Strenght, Dexterity, etc)
-and `skills, everything else in the game is considered to be a `modifier` and even though they are separated into different files to make the source of the characters
+and `skills`, everything else in the game is considered to be a `modifier` and even though they are separated into different files to make the source of the characters
 more readable `feats`, `buffs` and `gear` are all treated equally as "things" that modify your character final stats in one way or another.
 
 Don't expect wayfinder to help you to level up your character or stick to the rules of Pathfinder, it aims only to be a simple way to add up all your numbers and
