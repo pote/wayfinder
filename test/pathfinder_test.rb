@@ -157,3 +157,83 @@ ability_scores:
   assert_equal c.stack_for('to_hit').count, 1
   assert_equal c.modifier_for('to_hit'), 2
 end
+
+test 'saving throws should work' do
+  main = YAML.load("
+saving_throws:
+  fortitude:  6
+  reflex:     8
+  will:       7
+ability_scores:
+  strength: 16
+  dexterity: 14
+  constitution: 14
+  intelligence: 12
+  wisdom: 8
+  charisma: 16
+  ")
+
+  modifiers = YAML.load("
+- name:   'Heroism'
+  active: true
+  type:  'morale'
+  modifiers:
+    to_hit:     2
+    fortitude:  2
+    reflex:     2
+    will:       2
+    made_up:    1
+  ")
+
+  c = Wayfinder::Character.new({
+    main: main,
+    modifiers: modifiers,
+    skills: []
+  })
+
+  assert_equal c.fortitude, 10
+  assert_equal c.reflex,    12
+  assert_equal c.will,      8
+end
+
+test 'skills should work' do
+  main = YAML.load("
+ability_scores:
+  strength: 16
+  dexterity: 14
+  constitution: 14
+  intelligence: 12
+  wisdom: 8
+  charisma: 16
+  ")
+
+  modifiers = YAML.load("
+- name: 'Ioun Stone'
+  active: true
+  modifiers:
+    escape_artist: 1
+  ")
+
+  skills = YAML.load("
+bluff:
+  stat: 'charisma'
+  ranks: 6
+escape_artist:
+  class: true
+  stat: 'dexterity'
+  ranks: 5
+   ")
+
+  c = Wayfinder::Character.new({
+    main: main,
+    modifiers: modifiers,
+    skills: skills
+  })
+
+  # Basic output should be ranks + ability score modifier.
+  assert_equal c.skills.bluff, 9
+
+  # Class skills should have an automatic +3
+  # this one in particular is also affected by a modifier.
+  assert_equal c.skills.escape_artist, 11
+end

@@ -131,7 +131,7 @@ module Wayfinder
     end
 
     def bab
-      source.main.bab
+      source_data.main.bab
     end
 
     def to_hit(base_attack = self.bab)
@@ -173,13 +173,19 @@ module Wayfinder
       skill = source_data.skills.fetch(skill_name, {})
 
       computed_score = skill.fetch('ranks', 0) +
-                       self.send("#{ skill['stat'] }_modifier") +
+                       self.send("#{ skill.stat }_modifier") +
                        modifier_for(skill_name) +
                        modifier_for('all_skills')
 
       computed_score += 3 if skill['class']
 
       computed_score
+    end
+
+    def skills
+      source_data.skills.map do |name, _|
+        [name, skill(name)]
+      end.to_h
     end
   end
 end
