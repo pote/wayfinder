@@ -12,8 +12,7 @@ Gem::Specification.new do |s|
   s.files             = ['bin/wayfinder', 'lib/wayfinder.rb']
   s.license           = "MIT"
   s.executables.push("wayfinder")
-  s.add_runtime_dependency('box')
   s.add_runtime_dependency('mote')
   s.add_runtime_dependency('clap')
-  s.add_runtime_dependency('debugger')
+  s.add_runtime_dependency('hashdot')
 end
