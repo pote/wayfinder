@@ -64,20 +64,31 @@ module Wayfinder
 
     ## Returns an array of items in the modifier stack marked with 'active: true'
     def active_stack
-      source_data.modifiers.keep_if { |item| item.active }
+      source_data.modifiers.select { |item| item.active }
     end
 
     ## Returns an array of object who affect the specified attribute
     def stack_for(attribute)
-      applicable_stack = []
-
       # TODO:
       # Bonuses of the same type do not stack, we need to pick the biggest one
       # and only apply that.
 
-      active_stack.select { |item|
+      related_stack = active_stack.select { |item|
         item.fetch('modifiers', {}).keys.include?(attribute)
+      }.group_by { |item| item['type'] }
+
+      # Start by adding all modifiers with no type, or initializing at []
+      applicable_stack = related_stack.delete(nil) || []
+
+      # Then for each of the remaining modifiers by group, pick only the
+      # biggest one.
+      related_stack.each { |_, mods|
+        applicable_stack << mods.sort_by { |m|
+                              m.modifiers[attribute]
+                            }.last
       }
+
+      applicable_stack
     end
 
     ## Outputs the final numeric modifier for the specified attribute.
