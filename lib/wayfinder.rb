@@ -75,11 +75,9 @@ module Wayfinder
       # Bonuses of the same type do not stack, we need to pick the biggest one
       # and only apply that.
 
-      active_stack.keep_if { |item|
+      active_stack.select { |item|
         item.fetch('modifiers', {}).keys.include?(attribute)
       }
-
-      applicable_stack
     end
 
     ## Outputs the final numeric modifier for the specified attribute.
