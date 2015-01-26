@@ -1,1 +1,3 @@
 clap -v 1.0.0
+cutest -v 1.2.2
+hashdot -v 0.1.0

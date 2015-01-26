@@ -1,70 +1,83 @@
-module Wayfinder
+require 'hashdot'
 
+module Wayfinder
   BASE_STATS = %w(strength dexterity constitution wisdom charisma intelligence)
 
   class Character
 
-    ## :source must be a hash with the following keys, each containing the data of
-    ## its appropriate yaml file.
+    ## :source_data must be a hash with the following keys, each containing the data of
+    ## its corresponding yaml file.
     #
-    #  * meta         - contains hp, base attack bonus, saving throws, xp, name,
-    #                   and other metadata.
-    #  * stats        - contains basic stats, str, dex, con, wis, int and cha.
-    #  * gear         - contains descriptions of items that modify the final
-    #                   computed stats for the character.
-    #  * feats        - character feats, similar to gear in that it contributes
-    #                   to the final stack.
-    #  * buffs        - buffs are temporary modifiers that are expected to change
-    #                   often, but act much like feats and gear.
+    #  * main         - contains hp, base attack bonus, saving throws, xp, name,
+    #                   basic stats, str, dex, con, wis, int and cha.
+    #
+    #  * modifiers    - contains descriptions of items, feats, magical effects, or
+    #                   any other thing that modifies character attributes.
+    #
     #  * skills       - skills contain data on the ranks and associated stats for
     #                   each given skill.
-    #
-    ## :modifier_stack is an array of gear, feats and buffs and is what will be
-    ## iterated while computing final modifiers for all character stats.
 
-    attr_accessor :source, :modifier_stack
+    attr_accessor :source_data
 
     def initialize(source_data = {})
-      self.source = source_data
-      self.modifier_stack = [
-        self.source[:gear],
-        self.source[:feats],
-        self.source[:buffs]
-      ]
+      self.source_data = source_data
     end
 
     BASE_STATS.each do |base_stat|
       define_method(base_stat) do
-        self.source[:stats][base_stat] + modifier_for(base_stat)
+        base_ability_scores[base_stat] + modifier_for(base_stat)
       end
 
       define_method("#{ base_stat }_modifier") do
-        stat = self.source[:stats][base_stat] + modifier_for(base_stat)
+        stat = base_ability_scores[base_stat] + modifier_for(base_stat)
         (stat - 10) / 2
       end
     end
 
+    def base_ability_scores
+      source_data.main.ability_scores
+    end
+
+    def base_saving_throws
+      source_data.main.saving_throws
+    end
+
+    def fortitude
+      base_saving_throws.fortitude + constitution_modifier + modifier_for('fortitude')
+    end
+
+    def reflex
+      base_saving_throws.reflex + dexterity_modifier + modifier_for('reflex')
+    end
+
+    def will
+      base_saving_throws.will + wisdom_modifier + modifier_for('will')
+    end
+
+    def saving_throws
+      {
+        fortitude:  fortitude,
+        reflex:     reflex,
+        will:       will
+      }
+    end
+
     ## Returns an array of items in the modifier stack marked with 'active: true'
     def active_stack
-      self.modifier_stack.map(&:values).flatten.keep_if { |item| item['active'] }
+      source_data.modifiers.keep_if { |item| item.active }
     end
 
     ## Returns an array of object who affect the specified attribute
     def stack_for(attribute)
-      # Bonuses of the same type do not stack, we need to pick the biggest one and use that one.
       applicable_stack = []
 
-      self.active_stack.keep_if { |item|
+      # TODO:
+      # Bonuses of the same type do not stack, we need to pick the biggest one
+      # and only apply that.
+
+      active_stack.keep_if { |item|
         item.fetch('modifiers', {}).keys.include?(attribute)
-      }.group_by { |mod| mod['type'] }.each do |type, mods|
-        if type
-          # We take the highest modifier of each type
-          applicable_stack << mods.sort_by { |mod| mod.fetch('modifiers', {}).fetch(attribute, 0) }.reverse.first
-        else
-          # Modifiers without a type are simply added to the stack.
-          applicable_stack += mods
-        end
-      end
+      }
 
       applicable_stack
     end
@@ -81,23 +94,23 @@ module Wayfinder
     end
 
     def name
-      self.source[:meta]['name']
+      source_data.main.name
     end
 
     def xp
-      self.source[:meta]['xp']
+      source_data.main.xp
     end
 
     def hp
-      self.source[:meta]['hp'] + modifier_for('hp')
+      source_data.main.hp + modifier_for('hp')
     end
 
     def received_damage
-      self.source[:meta]['received_damage']
+      source_data.main.received_damage
     end
 
     def current_hp
-      self.hp - self.received_damage
+      hp - received_damage
     end
 
     def speed
@@ -109,7 +122,7 @@ module Wayfinder
     end
 
     def bab
-      self.source[:meta]['bab']
+      source.main.bab
     end
 
     def to_hit(base_attack = self.bab)
@@ -121,7 +134,7 @@ module Wayfinder
     end
 
     def full_attack
-      attack_babs = [self.bab]
+      attack_babs = [bab]
 
       ## Fuck yeah I used a while in ruby, fuck you, fuck everything, EVERYTHING.
       while attack_babs.last - 5 >= 1
@@ -136,52 +149,28 @@ module Wayfinder
     end
 
     def cmd
-      10 + self.bab + strength_modifier + dexterity_modifier + modifier_for('cmd')
+      10 + bab + strength_modifier + dexterity_modifier + modifier_for('cmd')
     end
 
     def cmb
-      10 + self.bab + strength_modifier + modifier_for('cmd')
+      10 + bab + strength_modifier + modifier_for('cmd')
     end
 
     def damage_reduction
       0 + modifier_for('damage_reduction')
     end
 
-    def saving_throws
-      {
-        fortitude: self.fortitude,
-        reflex: self.reflex,
-        will: self.will
-      }
-    end
-
-    def fortitude
-      self.source[:meta]['fortitude'] + constitution_modifier + modifier_for('fortitude')
-    end
-
-    def reflex
-      self.source[:meta]['reflex'] + dexterity_modifier + modifier_for('reflex')
-    end
-
-    def will
-      self.source[:meta]['will'] + wisdom_modifier + modifier_for('will')
-    end
-
     def skill(skill_name)
-      skill = self.source[:skills].fetch(skill_name, {})
-      computed_score = skill.fetch('ranks', 0) + self.send("#{ skill['stat'] }_modifier") + modifier_for(skill_name) + modifier_for('all_skills')
+      skill = source_data.skills.fetch(skill_name, {})
 
-      if skill['class']
-        computed_score += 3
-      end
+      computed_score = skill.fetch('ranks', 0) +
+                       self.send("#{ skill['stat'] }_modifier") +
+                       modifier_for(skill_name) +
+                       modifier_for('all_skills')
+
+      computed_score += 3 if skill['class']
 
       computed_score
-    end
-
-    def skills
-      all_skills = {}
-      self.source[:skills].keys.each { |s| all_skills[s] = self.skill(s) }
-      all_skills
     end
   end
 end
