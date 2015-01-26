@@ -64,7 +64,7 @@ module Wayfinder
 
     ## Returns an array of items in the modifier stack marked with 'active: true'
     def active_stack
-      source_data.modifiers.select { |item| item.active }
+      source_data.modifiers.select { |item| item.fetch('active', true) }
     end
 
     ## Returns an array of object who affect the specified attribute
