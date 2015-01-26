@@ -1,0 +1,224 @@
+## Gear
+- name: 'DiBlasi Rapier of Awesome +3'
+  active: true
+  weapon:
+    number_of_dies: 1
+    die_size: 6
+    critical: '18-20'
+  modifiers:
+    to_hit: 3
+    damage: 3
+
+- name: 'Mithril Chain Shirt +2'
+  active: true
+  modifiers:
+    ac: 6
+
+- name: 'Ring of Protection'
+  active: true
+  type: 'deflection'
+  modifiers:
+    ac: 2
+
+- name: 'Belt of Giant Strength'
+  active: true
+  modifiers:
+    strength: 4
+
+- name: 'Amulet of Natural Armor'
+  active: true
+  type: 'natural_armor'
+  modifiers:
+    ac: 2
+
+- name: 'Ioun Stone'
+  active: true
+  modifiers:
+    escape_artist: 1
+
+- name: 'Cloak of Elvenkind'
+  active: true
+  type: 'competence'
+  modifiers:
+    stealth: 5
+
+- name: 'Headband of intelligence'
+  active: true
+  type: 'enhancement'
+  modifiers:
+    intelligence:       4
+    knowledge_history:  13
+    knowledge_religion: 13
+
+# Feats
+- name: "Di Blasi Song"
+  active: true
+  notes: "Di Blasi Brother's bardic music effects stack"
+
+- name: 'Dodge'
+  active: true
+  modifiers:
+    ac: 1
+
+- name: "Mobility"
+  active: true
+  affects: 'ac'
+  note: 'Adds +4 to AC against attacks of opportunity'
+
+- name: 'Weapon Focus (Rapier)'
+  active: true
+  modifiers:
+    to_hit: 1
+
+- name: "Weapon finesse"
+  active: false
+  notes: 'Can choose to use DEX modifier for combat with light weapons'
+
+- name: 'Power Attack'
+  active: true
+  modifiers:
+    to_hit: -3
+    damage: 6
+
+- name: "Lunge"
+  active: false
+  modifiers:
+    reach: 5
+    ac: -2
+
+- name: 'Canny Defense'
+  active: true
+  class: 'duelist'
+  modifiers:
+    ac: 1
+
+- name: 'Precise Strike'
+  active: true
+  class: 'duelist'
+  modifiers:
+    damage: 6
+
+- name: "Improved Critical"
+  active: true
+  affects: 'critical'
+  notes:  'Doubles critical range'
+
+- name: 'Improved Reaction'
+  active: true
+  class: 'duelist'
+  modifiers:
+    initiative: 2
+
+- name: "Parry"
+  active: true
+  affects: 'combat'
+  class: 'duelist'
+  notes: 'Can "save" an attack to use as defense'
+
+- name: "Enhanced Mobility"
+  active: true
+  affects: 'ac'
+  class: 'duelist'
+  notes: 'Additional +4 AC against attacks of opportunity'
+
+- name: "Critical Focus"
+  active: true
+  affects: 'combat'
+  notes: '+4 in rolls to confirm critical hits'
+
+- name: 'Combat reflexes'
+  active: true
+  affects: 'combat'
+  class: 'duelist'
+  notes: 'Can do 3 attacks of opportunity per turn'
+
+- name: 'Grace'
+  active: true
+  class: 'duelist'
+  modifiers:
+    reflex: 2
+
+- name: "Riposte"
+  active: true
+  affects: 'combat'
+  class: 'duelist'
+  notes: 'Has a free attack of opportunity after parrying'
+
+- name: "Acrobatic Charge"
+  active: true
+  class: 'duelist'
+  affects: 'combat'
+  notes: 'Can charge through difficult terrain'
+
+- name: "Bleeding Critical"
+  active: true
+  affects: 'combat'
+  notes: 'Adds 2d6 cumulative bleed damage to each successful critical hit'
+
+# Buff
+- name:   'Haste'
+  active: false
+  modifiers:
+    to_hit: 1
+    ac:     1
+    reflex: 1
+    speed:  30
+
+- name:   'Mass reduce person'
+  active: false
+  modifiers:
+    speed:    -10
+    strength: -2
+    to_hit:   1
+    ac:       1
+
+- name:   'Heroes Feast'
+  active: false
+  modifiers:
+    hp:     12
+    to_hit: 1
+    will:   1
+
+- name: "Protection from evil"
+  active: false
+  modifiers:
+    ac:         2
+    fortitude:  2
+    will:       2
+    reflex:     2
+
+- name:   'Prayer'
+  active: false
+  type: 'morale'
+  modifiers:
+    will:       1
+    fortitude:  1
+    reflex:     1
+    damage:     1
+    to_hit:     1
+
+- name:   'Heroism'
+  active: true
+  type:  'morale'
+  modifiers:
+    to_hit: 2
+    fortitude: 2
+    reflex: 2
+    will: 2
+
+- name: 'Di Blasi Song (Ed)'
+  active: false
+  modifiers:
+    to_hit: 1
+    damage: 1
+
+- name: 'Di Blasi Song (Al)'
+  active: false
+  modifiers:
+    to_hit: 1
+    damage: 1
+
+- name: "Flanking"
+  active: false
+  modifiers:
+    to_hit: 2

@@ -1,0 +1,69 @@
+acrobatics:
+  class: true
+  stat: 'dexterity'
+  ranks: 13
+
+bluff:
+  class: true
+  stat: 'charisma'
+  ranks: 6
+
+climb:
+  class: true
+  stat: 'strength'
+  ranks: 5
+
+diplomacy:
+  class: true
+  stat: 'charisma'
+  ranks: 9
+
+escape_artist:
+  class: true
+  stat: 'dexterity'
+  ranks: 5
+
+perception:
+  class: true
+  stat: 'charisma'
+  ranks: 5
+
+perform_sing:
+  class: true
+  stat: 'charisma'
+  ranks: 11
+
+perform_string:
+  class: true
+  stat: 'charisma'
+  ranks: 1
+
+ride:
+  class: true
+  stat: 'dexterity'
+  ranks: 1
+
+spellcraft:
+  class: true
+  stat: 'intelligence'
+  ranks: 1
+
+stealth:
+  class: true
+  stat: 'dexterity'
+  ranks: 9
+
+survival:
+  class: true
+  stat: 'wisdom'
+  ranks: 1
+
+use_magic_device:
+  class: true
+  stat: 'charisma'
+  ranks: 13
+
+langage:
+  name: 'Tassilonian'
+  stat: 'intelligence'
+  ranks: 1

@@ -69,10 +69,6 @@ module Wayfinder
 
     ## Returns an array of object who affect the specified attribute
     def stack_for(attribute)
-      # TODO:
-      # Bonuses of the same type do not stack, we need to pick the biggest one
-      # and only apply that.
-
       related_stack = active_stack.select { |item|
         item.fetch('modifiers', {}).keys.include?(attribute)
       }.group_by { |item| item['type'] }
@@ -104,6 +100,10 @@ module Wayfinder
 
     def name
       source_data.main.name
+    end
+
+    def alignment
+      source_data.main.alignment
     end
 
     def xp

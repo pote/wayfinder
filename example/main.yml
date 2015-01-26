@@ -1,0 +1,25 @@
+name: 'Edward Di Blasi'
+alignment: 'Chaotic/Good'
+xp: 255000
+
+hp: 104
+received_damage: 36
+bab: 12
+
+classes:
+  bard: 4
+  fighter: 3
+  duelist: 6
+
+saving_throws:
+  fortitude:  6
+  reflex:     8
+  will:       7
+
+ability_scores:
+  strength: 16
+  dexterity: 14
+  constitution: 14
+  intelligence: 12
+  wisdom: 8
+  charisma: 16

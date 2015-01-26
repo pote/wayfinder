@@ -1,0 +1,58 @@
+## {{ c.name }}
+
+### General
+
+|             |                   |
+|-------------|-------------------|
+| XP          | {{ c.xp }}        |
+| Alignment   | {{ c.alignment }} |
+
+#### Classes
+
+| Class   | Level |
+|---------|-------|
+% c.source_data.main.classes.each do |klass, level|
+| {{ klass.capitalize }} | {{ level }} |
+% end
+
+### Stats
+
+| Stat         | Score              | Modifier                        |
+|--------------|:------------------:|:-------------------------------:|
+| Strength     | {{ c.strength }}     | {{ c.strength_modifier }}     |
+| Dexterity    | {{ c.dexterity }}    | {{ c.dexterity_modifier }}    |
+| Constitution | {{ c.constitution }} | {{ c.constitution_modifier }} |
+| Intelligence | {{ c.intelligence }} | {{ c.intelligence_modifier }} |
+| Wisdom       | {{ c.wisdom }}       | {{ c.wisdom_modifier }}       |
+| Charisma     | {{ c.strength }}     | {{ c.strength_modifier }}     |
+
+### Saves
+
+| Fortitude         | Reflex         | Will         |
+|:-----------------:|:--------------:|:------------:|
+| {{ c.fortitude }} | {{ c.reflex }} | {{ c.will }} |
+
+### Combat
+|             |                                               |
+|-------------|-----------------------------------------------|
+| Hit Points  | {{ c.hp }}                                    |
+| DR/CHP      | {{ c.received_damage }} / {{ c.current_hp }}  |
+| Initiative  | {{ c.initiative }}                            |
+| Armor Class | {{ c.ac }}                                    |
+| BAB         | {{ c.bab }}                                   |
+| CMD         | {{ c.cmd }}                                   |
+| CMB         | {{ c.cmb }}                                   |
+
+
+| To Hit Bonus                    | Damage                | Critical  |
+|:-------------------------------:|:---------------------:|:---------:|
+|  {{ c.full_attack.join('/') }}  | 1d6 + {{ c.damage }}  | 15-20 x 2 |
+
+
+### Skills
+
+| Skill             | Final Score |
+|-------------------|:-----------:|
+% c.skills.each do |name, score|
+| {{ name.split('_').map(&:capitalize).join(' ') }} | {{ score }} |
+% end

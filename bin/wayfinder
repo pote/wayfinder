@@ -4,10 +4,17 @@ require 'clap'
 require 'yaml'
 require File.expand_path("../lib/wayfinder", File.dirname(__FILE__))
 
-$source_dir = 'source'
+$source_dir     = 'source'
+$template_file  = 'source/template.mote'
+$output_file    = 'README.md'
+
 Clap.run ARGV,
   '-s'          => lambda { |param| $source_dir     = param  },
-  '--source'    => lambda { |param| $source_dir     = param  }
+  '--source'    => lambda { |param| $source_dir     = param  },
+  '-o'          => lambda { |param| $output_file    = param  },
+  '--output'    => lambda { |param| $output_file    = param  },
+  '-t'          => lambda { |param| $template_file  = param  },
+  '--template'  => lambda { |param| $template_file  = param  }
 
 
 def load_character
@@ -21,6 +28,16 @@ def load_character
   Wayfinder::Character.new(source_data)
 end
 
-require 'irb'
-require 'irb/completion'
-IRB.start
+$character = load_character
+
+case ARGV[0]
+when 'console'
+  require 'irb'
+  require 'irb/completion'
+  ARGV.clear
+  IRB.start
+when 'generate'
+  require 'mote'
+  template = Mote.parse(File.read($template_file), self, [:c])
+  File.open($output_file, 'w') { |f| f.write(template.call(c: $character)) }
+end
