@@ -44,7 +44,7 @@ $ tree
 You can run rests with the following command:
 
 ```bash
-$ cutest test/*.rb
+$ make test
 ```
 
 ## Example
