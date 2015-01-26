@@ -63,7 +63,7 @@ use_magic_device:
   stat: 'charisma'
   ranks: 13
 
-langage:
+language:
   name: 'Tassilonian'
   stat: 'intelligence'
   ranks: 1
